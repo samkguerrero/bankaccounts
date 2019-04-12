@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    @model UserTransaction
+    <div class="container">
+        <h2>Welcome, @Model.User.Fname</h2>
+        <h5>
+            Current balance:$ @{
+                float counter = 0;
+                foreach(var transaction in @Model.User.TransactionsMade) 
+                {
+                        counter = counter + @transaction.Amount;
+                }
+                @counter
+            }
+        </h5>
+        <partial name="TransactionFormPartial" model="@Model.Transaction"/>     
+        <table>
+            <thead>
+                <th>Amount</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+            @{
+                foreach(var transaction in @Model.User.TransactionsMade.OrderByDescending(b => b.CreatedAt)) 
+                {
+                    <tr>
+                        <td>@transaction.Amount</td>
+                        <td>@transaction.CreatedAt</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+        <a style="float: left;" href="/logout">Logout</a>
+    </div>
+</body>
+</html>

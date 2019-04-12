@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+
 
 namespace LoginRegistration.Models
 {
@@ -23,6 +25,8 @@ namespace LoginRegistration.Models
         [EmailAddress]
         [Display(Name="Email")]
         public string Email {get;set;}
+
+        public List<Transaction> TransactionsMade {get;set;}
 
         [Required]
         [MinLength(8, ErrorMessage="Password must be 8 characters or longer!")]

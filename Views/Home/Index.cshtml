@@ -14,9 +14,9 @@
 </head>
 <body>
         @model User
-        <a style="float: right;" href="login">Login</a>
+        <a style="float: right;" href="login">Already Registered?</a>
         <div class="container center-align">
-            <h1 class="blue-text">Register to this cool site!</h1>
+            <h1 class="blue-text">Register</h1>
             <form class="left-align" asp-action="signup" asp-controller="Home" method="post">
                 <br>
                 <span class="errorMsg" asp-validation-for="Fname"></span>
@@ -54,7 +54,7 @@
                 <br>
 
                 <br>
-                <input class="btn blue" type="submit" value="Sign up Now">
+                <input class="btn blue" type="submit" value="Submit">
             </form>
         </div>
         

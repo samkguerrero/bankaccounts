@@ -1,0 +1,9 @@
+@model Transaction
+<form asp-action="AccountInteraction" asp-controller="Home" method="post">
+    <br>
+    <span>Deposit/Withdraw</span>
+    <span style="color:red;" asp-validation-for="Amount"></span>
+    <input asp-for="Amount">
+    <br>
+    <input type="submit">
+</form>

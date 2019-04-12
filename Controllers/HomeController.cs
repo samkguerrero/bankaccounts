@@ -113,13 +113,68 @@ namespace LoginRegistration.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("account/{uid}")]
+        [HttpGet]
+        public IActionResult Account(int uid)
+        {
+            User userInAccount = dbContext.Users
+                .Include(user=> user.TransactionsMade)
+                .FirstOrDefault(user => user.UserId == uid);
+            UserTransaction aUserTransaction = new UserTransaction();
+            aUserTransaction.User = userInAccount;
+            return View(aUserTransaction);
+            // return View();
+        }
+
+        [Route("accountinteraction")]
+        [HttpPost]
+        public IActionResult AccountInteraction(Transaction newTransaction)
+        {
+            User userInAccount = dbContext.Users
+                .Include(user=> user.TransactionsMade)
+                .FirstOrDefault(user => user.UserId == HttpContext.Session.GetInt32("UserLoggedIn"));
+            float count = 0;
+            foreach (var i in userInAccount.TransactionsMade) 
+            {
+                count += i.Amount;
+            }
+
+            System.Console.WriteLine("hey sam here are some tests");
+            System.Console.WriteLine("here is your account at the moment");
+            System.Console.WriteLine(count);
+            System.Console.WriteLine("here is the ammount they want");
+            System.Console.WriteLine(newTransaction.Amount);
+            if(newTransaction.Amount > 0) 
+            {
+                newTransaction.CreatorUserId = (int)(HttpContext.Session.GetInt32("UserLoggedIn"));
+                dbContext.Add(newTransaction);
+                dbContext.SaveChanges();
+                return RedirectToAction("Account", new {uid = HttpContext.Session.GetInt32("UserLoggedIn")});
+            }
+            else if (count - newTransaction.Amount < 0) 
+            {
+                newTransaction.CreatorUserId = (int)(HttpContext.Session.GetInt32("UserLoggedIn"));
+                dbContext.Add(newTransaction);
+                dbContext.SaveChanges();
+                return RedirectToAction("Account", new {uid = HttpContext.Session.GetInt32("UserLoggedIn")});
+            }
+            else 
+            {
+                System.Console.WriteLine("failed transaction submission");
+                UserTransaction aUserTransaction = new UserTransaction();
+                aUserTransaction.User = userInAccount;
+                return View("Account",aUserTransaction);
+            }
+
+        }
+
         [Route("success")]
         [HttpGet]
         public IActionResult Success()
         {
             if(HttpContext.Session.GetInt32("UserLoggedIn") != null)
             {
-                return View();
+                return RedirectToAction("Account", new {uid = HttpContext.Session.GetInt32("UserLoggedIn")});
             } 
             else 
             {

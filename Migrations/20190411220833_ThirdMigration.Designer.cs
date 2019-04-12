@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoginRegistration.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20190410065846_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20190411220833_ThirdMigration")]
+    partial class ThirdMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,6 +18,26 @@ namespace LoginRegistration.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("LoginRegistration.Models.Transaction", b =>
+                {
+                    b.Property<int>("TransactionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<float>("Amount");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatorUserId");
+
+                    b.Property<string>("TheMakerOfTransaction");
+
+                    b.HasKey("TransactionId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.ToTable("Transactions");
+                });
 
             modelBuilder.Entity("LoginRegistration.Models.User", b =>
                 {
@@ -43,6 +63,14 @@ namespace LoginRegistration.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("LoginRegistration.Models.Transaction", b =>
+                {
+                    b.HasOne("LoginRegistration.Models.User", "Creator")
+                        .WithMany("TransactionsMade")
+                        .HasForeignKey("CreatorUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
