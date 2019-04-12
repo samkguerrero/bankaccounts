@@ -54,7 +54,7 @@ using LoginRegistration.Models;
             WriteLiteral("<!DOCTYPE html>\n<html>\n");
             EndContext();
             BeginContext(23, 315, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0910a72988e84c95814eb00b819e3585", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fac472b992934d069e574266bc1ab8e9", async() => {
                 BeginContext(29, 302, true);
                 WriteLiteral(@"
     <meta charset=""utf-8"">
@@ -80,7 +80,7 @@ using LoginRegistration.Models;
             WriteLiteral("\n");
             EndContext();
             BeginContext(339, 170, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8725724664114f3a864f07d49fe3dd50", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d7533f75baff4efa9dfe44a2a39e1d7d", async() => {
                 BeginContext(345, 157, true);
                 WriteLiteral("\n        <a style=\"float: right;\" href=\"logout\">Logout</a>\n        <div class=\"container center-align\">\n            <h1>SUCCESS</h1>\n        </div>\n        \n");
                 EndContext();

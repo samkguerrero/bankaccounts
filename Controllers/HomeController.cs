@@ -163,6 +163,7 @@ namespace LoginRegistration.Controllers
                 System.Console.WriteLine("failed transaction submission");
                 UserTransaction aUserTransaction = new UserTransaction();
                 aUserTransaction.User = userInAccount;
+                ViewBag.ValidTrans = "Not a valid amount";
                 return View("Account",aUserTransaction);
             }
 
