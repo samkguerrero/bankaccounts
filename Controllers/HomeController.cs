@@ -151,8 +151,16 @@ namespace LoginRegistration.Controllers
                 dbContext.SaveChanges();
                 return RedirectToAction("Account", new {uid = HttpContext.Session.GetInt32("UserLoggedIn")});
             }
-            else if (count - newTransaction.Amount < 0) 
+            else if (newTransaction.Amount < 0) 
             {
+                if(count - (-1 * newTransaction.Amount) < 0)
+                {
+                    UserTransaction aUserTransaction = new UserTransaction();
+                    aUserTransaction.User = userInAccount;
+                    ViewBag.ValidTrans = "Not a valid amount";
+                    return View("Account",aUserTransaction);
+                }
+                count += newTransaction.Amount;
                 newTransaction.CreatorUserId = (int)(HttpContext.Session.GetInt32("UserLoggedIn"));
                 dbContext.Add(newTransaction);
                 dbContext.SaveChanges();
